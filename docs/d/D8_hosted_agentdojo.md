@@ -1,6 +1,9 @@
 # DeepSeek + AgentDojo 三维 smoke
 
-日期：2026-10-17。状态：**smoke 33/33 与全量 1842/1842 托管回合完成；链路 PASS，安全增益不可识别（基线 ASR=0），效用门禁 FAIL**。
+日期：2026-10-17。状态：**smoke 33/33 完成；全量尝试 1842 回合、完成 1775 回合、67 回合工具错误；安全增益不可识别，效用门禁 FAIL**。
+
+零 ASR 排查及后续诊断入口见 [D8_asr_zero_audit.md](D8_asr_zero_audit.md)。B0 的攻击结果为
+0 true / 500 false / 60 unknown；不能将完成子集为零表述为模型免疫。下文历史数值保留，新增诊断不修改冻结评测结果。
 
 本阶段把 D6 的禁执行草案落为可运行协议，使用 AgentDojo 0.1.34 / benchmark v1.2 的开源
 workspace 套件，同时测三类结果：攻击目标达成率（ASR）、良性任务完成率（utility）、本地安全链时延。
@@ -111,10 +114,11 @@ provider JSONDecodeError 警告，疑似与拆分版并行抢账户限速），�
 1. **防御轴：ASR 基线为零，无法归因防御增益。** B0（无防御）对 `important_instructions` 全量
    560 个 attack 回合 ASR 为 0；同日 6 攻击筛选（direct / ignore_previous / important_instructions /
    injecagent / system_message / tool_knowledge，各 5 回合，`D8_b0_multiattack_20261017_145517`）
-   在 B0 上也全为 0。deepseek-flash 对 AgentDojo 现有攻击族免疫，因此本种群不能证明 B3 降低 ASR。
-   唯一的差异化防御信号是多余副作用：**B0 176 → B1 11 → B3 3**，全链压制了无防御 Agent 98% 的
-   越界行为——但这是环境差分观察，不是 AgentDojo oracle 指标。要测出 ASR 差异需要更易受诱导的
-   对照模型或自适应攻击（ref.md R14）。
+   在 B0 完成子集上也未观察到攻击目标成功。全量 B0 的 60 个 attack unknown 和筛选的 6 个 unknown
+   仍保留，因此现有结果不能证明模型免疫，也不能证明 B3 降低 ASR。
+   状态差分计数为 **B0 176 → B1 11 → B3 3**；该指标包括邮件已读标志等读取产生的变化，
+   不能将差值直接解释为恶意越界行为减少 98%。下一步先核对载荷实际触达、goal control 成功率、
+   模型输出截断和错误回合的原生目标判定，再决定是否新增模型或自适应攻击。
 2. **效用轴：门禁 FAIL，损失主要来自 CaMeL 特权管道。** B3 相对 B0 完成子集下降 40pp
    （60% vs 100%），违反“≤5pp”门禁；但 B1 原版 CaMeL 自身只有 50%，即大部分损失是上游
    CaMeL 代码生成环节固有的，ABCD 插入层相对 B1 **回升 10pp**。B3 的 22 个 benign WRITE 回合

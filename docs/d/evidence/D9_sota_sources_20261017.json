@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-17",
+  "status": "AUTHOR_SOURCE_PINNED_AND_PORT_TESTED",
+  "not_a_global_sota_ranking": true,
+  "sources": [
+    {
+      "repo": "kaijiezhu11/MELON",
+      "commit": "4d3cc9c0175cc26332aac696ac5556c3f85a5e8e",
+      "file": "README.md",
+      "url": "https://raw.githubusercontent.com/kaijiezhu11/MELON/4d3cc9c0175cc26332aac696ac5556c3f85a5e8e/README.md",
+      "sha256": "6eac314dc3cf26c88d12a16822e96e6feca220501ea0b0986f8cfcde7a9b9be0",
+      "local": "artifacts/d/SOTA01/source_audit/kaijiezhu11__MELON__README.md"
+    },
+    {
+      "repo": "kaijiezhu11/MELON",
+      "commit": "4d3cc9c0175cc26332aac696ac5556c3f85a5e8e",
+      "file": "pi_detector.py",
+      "url": "https://raw.githubusercontent.com/kaijiezhu11/MELON/4d3cc9c0175cc26332aac696ac5556c3f85a5e8e/pi_detector.py",
+      "sha256": "5a7f6b28228545e0d4ad9e98c9080ad819bb1cf471a67a31c8c4466b199a9017",
+      "local": "artifacts/d/SOTA01/source_audit/kaijiezhu11__MELON__pi_detector.py"
+    },
+    {
+      "repo": "sunblaze-ucb/progent",
+      "commit": "5be7b63fa96f70bc19b72fbcee81f1c0bcc1a565",
+      "file": "README.md",
+      "url": "https://raw.githubusercontent.com/sunblaze-ucb/progent/5be7b63fa96f70bc19b72fbcee81f1c0bcc1a565/README.md",
+      "sha256": "0b436807ef304ad1e66d8fcb486fa16e9cd076e62f9dfff022bfc692a0279fd6",
+      "local": "artifacts/d/SOTA01/source_audit/sunblaze-ucb__progent__README.md"
+    }
+  ],
+  "progent": {
+    "paper": "https://arxiv.org/abs/2504.11703",
+    "author_repo": "https://github.com/sunblaze-ucb/progent",
+    "commit": "5be7b63fa96f70bc19b72fbcee81f1c0bcc1a565",
+    "license": "MIT",
+    "source_sha256": {
+      "artifacts/d/SOTA01/progent_source/secagent/__init__.py": "4ffaaabcf976262ef1010943db76ca645808e178674b335af30b5806ae8bdd14",
+      "artifacts/d/SOTA01/progent_source/secagent/mcp_proxy.py": "e3e86dcfa6389cbedadce152dacf1031f60064b2a549297cc1287d1a3fc4327a",
+      "artifacts/d/SOTA01/progent_source/secagent/policy_analysis.py": "24a70a519a7db2967f932b1dfa026656b24702e6050de718179f2e1dce074e2e",
+      "artifacts/d/SOTA01/progent_source/secagent/policy_type_check.py": "9c3dc678596d70b967af5689b088ea1159285f928ba84b5fcdf9fa32bee10dbf",
+      "artifacts/d/SOTA01/progent_source/secagent/progent_proxy.py": "9e0f4632a4577bc3808c4465d0b5be659cc6f6cca9c893b64bc5ddec05e55358",
+      "artifacts/d/SOTA01/progent_source/secagent/role_analyzer.py": "57b163035fdfd92e8dbf3e05e40ba1e7f5cc3e6636df1ab3b97105b6c17893e5",
+      "artifacts/d/SOTA01/progent_source/secagent/tool.py": "c0d4caf85dae95e4db309a3153aef1d3005080babcf7a1277e67b6481e63800e",
+      "artifacts/d/SOTA01/progent_source/secagent/utils.py": "37309da56bf25a097c379b706be2ee981091ac90eb679674e1a3638318a37125",
+      "artifacts/d/SOTA01/progent_source/LICENSE": "9cfa61bf6a9eab26845c6436d5f2bb15b91f05386f0b8be52e8b9a49a62fe45d",
+      "artifacts/d/SOTA01/progent_source/pyproject.toml": "37071d903a3434e3f65810feaf0404408ab24800790f8baad2691e5a96856100"
+    },
+    "isolated_dependency": "z3-solver==4.15.4.0",
+    "configuration": {
+      "SECAGENT_ONLY_ALLOW_NARROW": true,
+      "SECAGENT_IGNORE_UPDATE_ERROR": false,
+      "policy_model": "deepseek-ai/DeepSeek-V3.2",
+      "manual_check": false,
+      "optional_framework_integrations": false
+    },
+    "deviations": [
+      "Ported string/message and tool execution integration to AgentDojo 0.1.34",
+      "V3.2 replaces original GPT-4o agent and policy model",
+      "Narrow-only and do-not-ignore-update-errors enabled; original run.sh leaves narrow-only commented and ignores update errors",
+      "Policy refusal returned as blocked tool result with no upstream tool error, consistent with B3",
+      "Optional LangChain/Agents SDK integrations skipped; core policy source unchanged"
+    ],
+    "offline_validation": "106 focused tests passed including seven Progent authorization, Z3, isolation and native-episode checks"
+  },
+  "other_methods": {
+    "MELON": "Author source pinned; text-embedding-3-large unavailable under current credential setup; NOT_RUN",
+    "PromptArmor": "Paper verified; author implementation not confirmed; NOT_RUN",
+    "CausalArmor": "Proxy action likelihood service unavailable; NOT_RUN",
+    "AttriGuard": "Paper verified; current same-model adaptation not completed; NOT_RUN"
+  },
+  "author_core_code_imported_and_tested": true,
+  "author_install_scripts_or_servers_executed": false,
+  "primary_sources": {
+    "PromptArmor": "https://arxiv.org/abs/2507.15219",
+    "MELON": "https://proceedings.mlr.press/v267/zhu25z.html",
+    "Progent": "https://arxiv.org/abs/2504.11703",
+    "CausalArmor": "https://arxiv.org/abs/2602.07918",
+    "AttriGuard": "https://arxiv.org/abs/2603.10749"
+  }
+}
